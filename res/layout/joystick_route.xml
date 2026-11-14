@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="500dp"
+    android:background="@drawable/border_window"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/joystick_route_tips"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:textSize="18sp"
+        android:text="@string/joystick_route_tips"/>
+
+    <ImageButton
+        android:id="@+id/route_min"
+        android:layout_width="@dimen/joystick_btn_width"
+        android:layout_height="@dimen/joystick_btn_height"
+        android:layout_gravity="top|end"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="5dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_down"
+        android:theme="@style/RippleWhite" />
+
+    <ImageButton
+        android:id="@+id/route_close"
+        android:layout_width="@dimen/joystick_btn_width"
+        android:layout_height="@dimen/joystick_btn_height"
+        android:layout_gravity="top|end"
+        android:layout_marginEnd="3dp"
+        android:layout_marginTop="5dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_close"
+        android:theme="@style/RippleWhite" />
+
+    <!-- 速度模式切换：与摇杆窗的步行/跑步/骑行共用同一套速度设置，运行中切换立即生效 -->
+    <LinearLayout
+        android:id="@+id/route_speed_bar"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/route_walk"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/circle_shape_bg"
+            android:contentDescription="@string/joystick_walk"
+            android:src="@drawable/ic_walk"/>
+
+        <ImageButton
+            android:id="@+id/route_run"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/circle_shape_bg"
+            android:contentDescription="@string/joystick_run"
+            android:src="@drawable/ic_run"/>
+
+        <ImageButton
+            android:id="@+id/route_bike"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/circle_shape_bg"
+            android:contentDescription="@string/joystick_bike"
+            android:src="@drawable/ic_bike"/>
+
+    </LinearLayout>
+
+    <!-- 跑步跑走交替设置：仅跑步模式显示，行走距离可设定 -->
+    <LinearLayout
+        android:id="@+id/route_run_config"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_marginTop="76dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/route_walk_interval"
+            android:textSize="14sp"/>
+
+        <EditText
+            android:id="@+id/route_walk_dist"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:hint="100"
+            android:inputType="number"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/route_walk_interval_unit"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_marginTop="110dp"
+        android:layout_width="match_parent"
+        android:layout_height="390dp">
+
+        <com.amap.api.maps.MapView
+            android:id="@+id/map_route"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </com.amap.api.maps.MapView>
+
+        <!-- 画笔模式的透明画布：覆盖在地图上接管触摸，把手指轨迹转换为路线点 -->
+        <View
+            android:id="@+id/route_pen_layer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/route_undo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom|start"
+            android:layout_marginBottom="20dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/circle_shape_bg"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_undo"
+            android:theme="@style/RippleWhite" />
+
+        <ImageButton
+            android:id="@+id/route_start"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/circle_shape_bg"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_play"
+            android:theme="@style/RippleWhite" />
+
+        <!-- 画笔模式开关：开启后用手指在地图上划动绘制路线 -->
+        <ImageButton
+            android:id="@+id/route_pen"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom|start"
+            android:layout_marginBottom="70dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/circle_shape_bg"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_pen"
+            android:theme="@style/RippleWhite" />
+
+    </FrameLayout>
+</FrameLayout>
